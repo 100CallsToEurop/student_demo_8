@@ -22,6 +22,12 @@ export class AuthService{
         private usersRepository: UsersRepository
     ){}
 
+    async setRefreshTokenUser(userId: ObjectId, token: string){
+        await this.usersRepository.updateRefreshToken(userId, token)
+    }
+
+
+
     async createUser(userParam: CreateUserDto): Promise<UserViewModel | null>{
         const passwordHash = await this._generateHash(userParam.password)
         const newUser = new UserServiceClass(userParam, passwordHash, false)

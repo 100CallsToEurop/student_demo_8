@@ -7,6 +7,7 @@ export const jwtService = {
     async createJWT(user: UserViewModel) {
         const accessToken = jwt.sign({userId: user.id}, `${process.env.SECRET_KEY}`, {expiresIn: '10s'})
         const refreshToken = jwt.sign({userId: user.id}, `${process.env.SECRET_KEY}`, {expiresIn: '200s'})
+
         return {
             accessToken,
             refreshToken
@@ -27,7 +28,7 @@ export const jwtService = {
                 id: user._id.toString(),
                 email: user.accountData.email,
                 login: user.accountData.userName,
-                createdAt: user.accountData.createAt.toString()
+                createdAt: user.accountData.createAt.toISOString()
             }
         }
         return null

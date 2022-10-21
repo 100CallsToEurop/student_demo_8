@@ -55,10 +55,11 @@ export class AuthController{
         const user = await this.authService.checkCredentials({login, password})
         if(user){
             const token = await jwtService.createJWT(user)
+            await this.authService.setRefreshTokenUser(new ObjectId(user.id), token.refreshToken)
             res.cookie('refreshToken', token.refreshToken, {
                 maxAge: 200 * 1000,
                 httpOnly: true,
-                secure: true
+                //secure: true
             });
             res.status(200).json({"accessToken": token.accessToken})
             return
@@ -74,15 +75,16 @@ export class AuthController{
         }
             const user = await jwtService.getUserIdByToken(req.cookies.refreshToken)
             if(!user) {
-                res.status(401).send('Unauthorized')
+                res.status(401).send('Unauthorized2')
                 return
             }
             await jwtService.createInvalidToken(req.cookies.refreshToken)
             const token = await jwtService.createJWT(user)
+        await this.authService.setRefreshTokenUser(new ObjectId(user.id), token.refreshToken)
             res.cookie('refreshToken', token.refreshToken, {
                 maxAge: 200 * 1000,
                 httpOnly: true,
-                secure: true
+                //secure: true
             });
             res.status(200).json({"accessToken": token.accessToken})
             return
