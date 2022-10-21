@@ -20,7 +20,7 @@ export class UsersService {
             id: user._id.toString(),
             email: user.accountData.email,
             login: user.accountData.userName,
-            createdAt: user.accountData.createAt.toLocaleString()
+            createdAt: user.accountData.createAt.toISOString()
         }
     }
 
@@ -139,7 +139,7 @@ export class UsersService {
                         id: item._id.toString(),
                         email: item.accountData.email,
                         login: item.accountData.userName,
-                        createdAt: item.accountData.createAt.toLocaleString()
+                        createdAt: item.accountData.createAt.toISOString()
                     },
                     sumScore: item.gameStatistic.sumScore,
                     avgScores: item.gameStatistic.avgScores,
