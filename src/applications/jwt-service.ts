@@ -5,8 +5,8 @@ import {usersRepository} from "../repositories/users.repository";
 
 export const jwtService = {
     async createJWT(user: UserViewModel) {
-        const accessToken = jwt.sign({userId: user.id}, `${process.env.SECRET_KEY}`, {expiresIn: '5m'})
-        const refreshToken = jwt.sign({userId: user.id}, `${process.env.SECRET_KEY}`, {expiresIn: '10m'})
+        const accessToken = jwt.sign({userId: user.id}, `${process.env.SECRET_KEY}`, {expiresIn: '10s'})
+        const refreshToken = jwt.sign({userId: user.id}, `${process.env.SECRET_KEY}`, {expiresIn: '20s'})
         return {
             accessToken,
             refreshToken
