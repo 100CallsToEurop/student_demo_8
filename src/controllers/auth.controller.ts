@@ -58,7 +58,7 @@ export class AuthController{
             res.cookie('refreshToken', token.refreshToken, {
                 maxAge: 10 * 1000,
                 httpOnly: true,
-                secure: true
+                //secure: true
             });
             res.status(200).json({"accessToken": token.accessToken})
             return
@@ -82,7 +82,7 @@ export class AuthController{
             res.cookie('refreshToken', token.refreshToken, {
                 maxAge: 20 * 1000,
                 httpOnly: true,
-                secure: true
+                //secure: true
             });
             res.status(200).json({"accessToken": token.accessToken})
             return
@@ -90,11 +90,11 @@ export class AuthController{
     }
 
     async logoutUser(req: Request, res: Response){
-        /*const valid = await jwtService.decodeToken(req.cookies.refreshToken)
+        const valid = await jwtService.decodeToken(req.cookies.refreshToken)
         if(!valid) {
             res.status(401).send('Unauthorized')
             return
-        }*/
+        }
         const result = await jwtService.createInvalidToken(req.cookies.refreshToken)
         if(result) {
             res.clearCookie('refreshToken');
